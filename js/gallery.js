@@ -65,7 +65,7 @@ const images = [
 ];
 
 
-const gallaryList = document.querySelector(".gallery");
+const galleryList = document.querySelector(".gallery");
 const markUp = images.map(({preview, original, description}) => `
     <li class="gallery-item">
   <a class="gallery-link" href="${original}">
@@ -79,10 +79,22 @@ const markUp = images.map(({preview, original, description}) => `
 </li>`
 
 ).join("")
-gallaryList.insertAdjacentHTML("beforeend", markUp)
-gallaryList.addEventListener("click", onImageClick);
+galleryList.insertAdjacentHTML("beforeend", markUp)
+galleryList.addEventListener("click", onImageClick);
 
 function onImageClick(event) {
     event.preventDefault();
+    const clickElement = event.target;
+  if(clickElement.nodeName !=="IMG") {
+    return;
+  }
+const largeImage = clickElement.dataset.source;
+console.log(largeImage);
+const instance = basicLightbox.create(`
+	<img src="${largeImage}"  >
+`)
+   instance.show(); 
+
     
 }
+
